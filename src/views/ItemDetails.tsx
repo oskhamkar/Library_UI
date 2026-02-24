@@ -102,6 +102,20 @@ const ItemDetails = () => {
 
     const tags = useMemo(() => item?.tags || [], [item])
 
+    const handleAddToCart = () => {
+        if (!id || !item) return
+        try {
+            const raw = localStorage.getItem('library_cart')
+            const current: string[] = raw ? JSON.parse(raw) : []
+            if (!current.includes(id)) {
+                current.push(id)
+            }
+            localStorage.setItem('library_cart', JSON.stringify(current))
+        } catch {
+            // ignore
+        }
+    }
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-full">
@@ -121,11 +135,11 @@ const ItemDetails = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)] gap-8">
-            <div className="space-y-4">
-                <div className="flex items-start gap-4">
+        <div className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)] gap-8">
+                <div className="flex items-start gap-6">
                     <div className="w-40 sm:w-48 lg:w-56 flex-shrink-0">
-                        <div className="aspect-[3/4] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 shadow-md">
+                        <div className="aspect-[3/4] overflow-hidden rounded-md bg-gray-100 dark:bg-gray-700 shadow">
                             <img
                                 src={item.coverImage || item.thumbnail}
                                 alt={item.title}
@@ -133,23 +147,37 @@ const ItemDetails = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex-1 space-y-2">
-                        <div className="flex items-center gap-2 text-xs text-blue-600 dark:text-sky-300">
-                            <HiOutlineAcademicCap />
-                            <span className="uppercase tracking-wide">
-                                {item.category.toUpperCase()}
-                            </span>
-                        </div>
+                    <div className="flex-1 space-y-3">
                         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-50">
                             {item.title}
                         </h1>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">
-                            {item.author} • {item.publisher}
+                        <p className="text-xs font-semibold uppercase text-gray-500">
+                            {item.category === 'books' ? 'Book' : item.category}
                         </p>
-                        <p className="text-xs text-gray-500">
-                            {item.department} • {item.year}
-                        </p>
-
+                        <div className="border-b border-dashed border-gray-300 pb-2 text-[11px] text-gray-600 dark:text-gray-300 space-y-1">
+                            <p>
+                                <span className="font-semibold">Categories:</span> {item.department}
+                                {' | '}
+                                <span className="font-semibold">Publisher Name:</span>{' '}
+                                {item.publisher}
+                                {' | '}
+                                <span className="font-semibold">Year:</span> {item.year}
+                            </p>
+                            <p>
+                                <span className="font-semibold">Author Name:</span> {item.author}
+                            </p>
+                        </div>
+                        <div className="text-[11px] text-gray-600 dark:text-gray-300 space-y-1">
+                            <p>
+                                <span className="font-semibold">Edition:</span> First (demo)
+                                {' | '}
+                                <span className="font-semibold">Exclusive:</span> Yes
+                                {' | '}
+                                <span className="font-semibold">Condition:</span> New
+                                {' | '}
+                                <span className="font-semibold">Binding:</span> Soft bound
+                            </p>
+                        </div>
                         {tags.length > 0 && (
                             <div className="flex flex-wrap gap-2 pt-1">
                                 {tags.map((tag) => (
@@ -165,43 +193,75 @@ const ItemDetails = () => {
                     </div>
                 </div>
 
-                <Card header="Description" bodyClass="space-y-2 text-sm leading-relaxed">
-                    <p className="text-gray-700 dark:text-gray-200">{item.description}</p>
-                </Card>
-
-                {previewOpen && (
-                    <Card
-                        header="Preview (sample pages)"
-                        bodyClass="space-y-2 text-sm leading-relaxed text-gray-600 dark:text-gray-200"
-                    >
-                        <p>
-                            This is a limited preview section intended to mirror how a real
-                            document viewer would appear in the platform. In a production
-                            environment, this would embed a secure PDF or HTML reader.
-                        </p>
-                        <p className="text-xs text-gray-500">
-                            Preview access lets readers validate relevance before purchasing
-                            full access to the publication.
-                        </p>
-                    </Card>
-                )}
-            </div>
-
-            <div className="space-y-4">
-                <Card bodyClass="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-xs text-gray-500 uppercase font-semibold">
-                                Access price
-                            </p>
-                            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-50">
-                                ${item.price.toFixed(2)}
-                            </p>
+                <Card header="Purchase options" bodyClass="space-y-3 text-xs text-gray-700 dark:text-gray-200">
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <span className="font-semibold">Format</span>
+                            <span className="font-semibold">Year</span>
+                            <span className="font-semibold">Price</span>
+                            <span className="font-semibold sr-only">Actions</span>
+                        </div>
+                        <div className="h-px bg-gray-200 dark:bg-gray-700" />
+                    </div>
+                    <div className="space-y-2">
+                        <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.6fr)_minmax(0,1fr)_minmax(0,1.4fr)] items-center gap-2 py-2 border-b border-gray-100 dark:border-gray-700">
+                            <span>Print</span>
+                            <span className="text-center">{item.year}</span>
+                            <span className="font-semibold text-orange-600">
+                                ₹ {(item.price * 1.0).toFixed(0)}
+                            </span>
+                            <div className="flex justify-end gap-2">
+                                <Button
+                                    size="xs"
+                                    variant="plain"
+                                    onClick={handleAddToCart}
+                                >
+                                    Add to cart
+                                </Button>
+                                <Button
+                                    size="xs"
+                                    variant="solid"
+                                    color="blue-600"
+                                    onClick={handleBuyNow}
+                                >
+                                    Buy now
+                                </Button>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.6fr)_minmax(0,1fr)_minmax(0,1.4fr)] items-center gap-2 py-2">
+                            <span>Online</span>
+                            <span className="text-center">{item.year}</span>
+                            <span className="font-semibold text-orange-600">
+                                ₹ {(item.price * 0.8).toFixed(0)}
+                            </span>
+                            <div className="flex justify-end gap-2">
+                                <Button
+                                    size="xs"
+                                    variant="plain"
+                                    onClick={handleAddToCart}
+                                >
+                                    Add to cart
+                                </Button>
+                                <Button
+                                    size="xs"
+                                    variant="solid"
+                                    color="blue-600"
+                                    onClick={handleBuyNow}
+                                >
+                                    Buy now
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="pt-2 flex items-center justify-between">
+                        <div className="space-y-1">
+                            <p>• Free campus-wide delivery for online access.</p>
+                            <p>• Access will appear immediately in your My Library dashboard.</p>
                         </div>
                         <Button
                             variant="plain"
                             size="sm"
-                            className="flex items-center gap-1 text-xs text-blue-600 dark:text-sky-300"
+                            className="flex items-center gap-1 text-blue-600 dark:text-sky-300"
                             onClick={handleToggleBookmark}
                         >
                             {bookmarked ? (
@@ -217,38 +277,29 @@ const ItemDetails = () => {
                             )}
                         </Button>
                     </div>
-                    <div className="space-y-2 text-xs text-gray-600 dark:text-gray-300">
-                        <p>• Unlimited re-access from your personal dashboard.</p>
-                        <p>• Single-institution academic license (demo).</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Button
-                            variant="twoTone"
-                            className="w-full"
-                            onClick={() => setPreviewOpen(true)}
-                        >
-                            Preview (limited)
-                        </Button>
-                        <Button
-                            variant="solid"
-                            color="blue-600"
-                            className="w-full"
-                            onClick={handleBuyNow}
-                        >
-                            Buy now
-                        </Button>
-                    </div>
-                </Card>
-
-                <Card header="Access information" bodyClass="space-y-2 text-xs text-gray-600 dark:text-gray-300">
-                    <p>• Login is required before completing any purchase.</p>
-                    <p>
-                        • Once purchased, this title will appear in{' '}
-                        <span className="font-medium">My Library</span> along with your reading
-                        history.
-                    </p>
                 </Card>
             </div>
+
+            <Card header="Description" bodyClass="space-y-2 text-sm leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-200">{item.description}</p>
+            </Card>
+
+            {previewOpen && (
+                <Card
+                    header="Preview (sample pages)"
+                    bodyClass="space-y-2 text-sm leading-relaxed text-gray-600 dark:text-gray-200"
+                >
+                    <p>
+                        This is a limited preview section intended to mirror how a real
+                        document viewer would appear in the platform. In a production
+                        environment, this would embed a secure PDF or HTML reader.
+                    </p>
+                    <p className="text-xs text-gray-500">
+                        Preview access lets readers validate relevance before purchasing full
+                        access to the publication.
+                    </p>
+                </Card>
+            )}
         </div>
     )
 }

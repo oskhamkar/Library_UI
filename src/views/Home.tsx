@@ -102,24 +102,26 @@ const Home = () => {
 
     return (
         <div className="space-y-8">
-            <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-700 via-blue-700 to-sky-600 text-white shadow-lg">
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top,_#ffffff40,_transparent_55%)]" />
-                <div className="relative px-8 py-10 lg:px-12 lg:py-14 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
+            <section className="relative overflow-hidden rounded-none lg:rounded-2xl bg-[#0073cf] text-white shadow-lg">
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top,_#ffffff60,_transparent_55%)]" />
+                <div className="relative px-6 py-10 lg:px-10 lg:py-14 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
                     <div className="max-w-xl space-y-4">
-                        <p className="text-sm font-semibold tracking-wide uppercase text-sky-200">
-                            Digital Library Platform
+                        <p className="text-sm font-semibold tracking-wide uppercase text-sky-100">
+                            Digital Knowledge Hub
                         </p>
-                        <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight">
-                            Gateway to <span className="font-bold">Unlimited Knowledge</span>
+                        <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">
+                            Trusted Source for Journals,
+                            <br />
+                            eBooks & Publishing
                         </h1>
                         <p className="text-sky-100 text-sm lg:text-base">
-                            Discover journals, books, magazines, and research papers in a single,
-                            curated academic library experience.
+                            Smart solutions for smarter libraries. Seamless access to journals,
+                            books, magazines and research papers in one unified portal.
                         </p>
                         <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3 max-w-xl">
                             <div className="flex-1">
                                 <Input
-                                    placeholder="Search by title, author, or category"
+                                    placeholder="Search journals, books, magazines…"
                                     prefix={<HiOutlineSearch className="text-gray-400" />}
                                     value={search.query}
                                     onChange={(e) =>
@@ -130,55 +132,55 @@ const Home = () => {
                             <Button
                                 variant="solid"
                                 color="blue-600"
-                                className="shadow-sm"
+                                className="shadow-sm bg-[#ff8a00] hover:bg-[#ff9e2e] border-none"
                                 onClick={handleSearch}
                             >
-                                Search Library
+                                Search
                             </Button>
                         </div>
                         <div className="flex flex-wrap mt-4 text-xs text-sky-100 gap-x-4 gap-y-1">
-                            <span>• Trusted by academic institutions</span>
-                            <span>• Role-based secure access</span>
-                            <span>• Seamless reading experience</span>
+                            <span>• Smart subscription management</span>
+                            <span>• Campus-wide entitlement</span>
+                            <span>• Secure digital delivery</span>
                         </div>
                     </div>
-                    <div className="lg:w-80">
-                        <Card className="bg-white/5 border border-white/10 backdrop-blur-md">
-                            <div className="flex flex-col gap-4">
-                                <div>
-                                    <p className="text-xs uppercase tracking-wide text-sky-100 mb-1">
-                                        Quick Snapshot
-                                    </p>
-                                    <p className="text-lg font-semibold">
-                                        Curated digital resources for modern campuses.
-                                    </p>
-                                </div>
-                                <div className="grid grid-cols-3 gap-3 text-center text-xs">
-                                    <div className="rounded-lg bg-white/5 py-2">
-                                        <p className="text-sm font-semibold">
-                                            {allItems.filter((i) => i.category === 'journals').length || 12}
-                                        </p>
-                                        <p className="text-sky-100">Journals</p>
-                                    </div>
-                                    <div className="rounded-lg bg-white/5 py-2">
-                                        <p className="text-sm font-semibold">
-                                            {allItems.filter((i) => i.category === 'books').length || 24}
-                                        </p>
-                                        <p className="text-sky-100">Books</p>
-                                    </div>
-                                    <div className="rounded-lg bg-white/5 py-2">
-                                        <p className="text-sm font-semibold">
-                                            {featured.length || 8}
-                                        </p>
-                                        <p className="text-sky-100">Featured</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2 text-xs text-sky-100">
-                                    <HiOutlineBookmark className="text-sky-100" />
-                                    <span>Bookmark titles to build your personal library.</span>
-                                </div>
+                    <div className="lg:w-[420px]">
+                        <div className="bg-white rounded-2xl px-6 py-6 shadow-md flex flex-col items-center gap-4">
+                            <div className="flex gap-4 justify-center">
+                                {(featured.length ? featured : allItems)
+                                    .slice(0, 3)
+                                    .map((item) => (
+                                        <div
+                                            key={item.id}
+                                            className="w-28 sm:w-32 cursor-pointer"
+                                            onClick={() => navigate(`/item/${item.id}`)}
+                                        >
+                                            <div className="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+                                                <img
+                                                    src={item.thumbnail || item.coverImage}
+                                                    alt={item.title}
+                                                    className="h-full w-full object-cover"
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
                             </div>
-                        </Card>
+                            <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
+                                <button
+                                    type="button"
+                                    className="h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center bg-white"
+                                >
+                                    ‹
+                                </button>
+                                <span>Featured covers</span>
+                                <button
+                                    type="button"
+                                    className="h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center bg-white"
+                                >
+                                    ›
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -218,57 +220,42 @@ const Home = () => {
             </section>
 
             <section className="space-y-4">
-                <div className="flex items-center justify-between gap-2">
+                <div className="text-center">
                     <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                        Featured publications
+                        Weekly Popular
                     </h2>
-                    {loading && (
-                        <span className="text-xs text-gray-500">Loading featured titles…</span>
-                    )}
+                    <div className="mt-2 h-[2px] w-16 bg-[#ff8a00] mx-auto rounded-full" />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {featured.map((item) => (
-                        <Card
-                            key={item.id}
-                            className="flex flex-col hover:shadow-lg transition-shadow duration-150"
-                        >
-                            <div className="aspect-[3/4] w-full mb-3 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
-                                <img
-                                    src={item.thumbnail || item.coverImage}
-                                    alt={item.title}
-                                    className="h-full w-full object-cover"
-                                />
-                            </div>
-                            <div className="flex-1 space-y-1">
-                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-50 line-clamp-2">
+                <div className="overflow-x-auto">
+                    <div className="flex gap-4 min-w-max pb-1">
+                        {featured.map((item) => (
+                            <Card
+                                key={item.id}
+                                className="w-48 sm:w-56 flex-shrink-0 hover:shadow-md transition-shadow duration-150"
+                                clickable
+                                onClick={() => navigate(`/item/${item.id}`)}
+                            >
+                                <div className="aspect-[3/4] w-full mb-3 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
+                                    <img
+                                        src={item.thumbnail || item.coverImage}
+                                        alt={item.title}
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
+                                <p className="text-xs font-semibold text-gray-900 dark:text-gray-50 line-clamp-2">
                                     {item.title}
                                 </p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                <p className="text-[11px] text-gray-500 dark:text-gray-400">
                                     {item.author}
                                 </p>
-                                <p className="text-xs text-gray-400">
-                                    {item.category.toUpperCase()} • {item.year}
-                                </p>
-                            </div>
-                            <div className="mt-3 flex items-center justify-between">
-                                <p className="text-sm font-semibold text-blue-600 dark:text-sky-300">
-                                    ${item.price.toFixed(2)}
-                                </p>
-                                <Button
-                                    size="sm"
-                                    variant="twoTone"
-                                    onClick={() => navigate(`/item/${item.id}`)}
-                                >
-                                    View details
-                                </Button>
-                            </div>
-                        </Card>
-                    ))}
-                    {!loading && featured.length === 0 && (
-                        <p className="text-sm text-gray-500">
-                            No featured titles available yet. Check back soon.
-                        </p>
-                    )}
+                            </Card>
+                        ))}
+                        {!loading && featured.length === 0 && (
+                            <p className="text-sm text-gray-500">
+                                No featured titles available yet. Check back soon.
+                            </p>
+                        )}
+                    </div>
                 </div>
             </section>
 
