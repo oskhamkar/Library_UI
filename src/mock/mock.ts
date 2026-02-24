@@ -3,7 +3,7 @@ import appConfig from '@/configs/app.config'
 
 import { signInUserData } from './data/authData'
 
-import { authFakeApi } from './fakeApi'
+import { authFakeApi, libraryFakeApi } from './fakeApi'
 
 const { apiPrefix } = appConfig
 
@@ -25,6 +25,7 @@ export function mockServer({ environment = 'test' }) {
             this.passthrough()
 
             authFakeApi(this, apiPrefix)
+            libraryFakeApi(this, apiPrefix)
         },
     })
 }

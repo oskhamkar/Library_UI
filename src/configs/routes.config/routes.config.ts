@@ -11,6 +11,55 @@ export const protectedRoutes = [
         component: lazy(() => import('@/views/Home')),
         authority: [],
     },
+    // Digital Library Routes
+    {
+        key: 'library.home',
+        path: '/library',
+        component: lazy(() => import('@/views/library/LibraryHome')),
+        authority: [],
+    },
+    {
+        key: 'library.browse',
+        path: '/library/browse',
+        component: lazy(() => import('@/views/library/LibraryBrowse')),
+        authority: [],
+    },
+    {
+        key: 'library.category',
+        path: '/library/category/:category',
+        component: lazy(() => import('@/views/library/LibraryBrowse')),
+        authority: [],
+    },
+    {
+        key: 'library.publication',
+        path: '/library/publication/:id',
+        component: lazy(() => import('@/views/library/PublicationDetails')),
+        authority: [],
+    },
+    {
+        key: 'library.checkout',
+        path: '/library/checkout',
+        component: lazy(() => import('@/views/library/Checkout')),
+        authority: [],
+    },
+    {
+        key: 'library.dashboard',
+        path: '/library/dashboard',
+        component: lazy(() => import('@/views/library/Dashboard')),
+        authority: [],
+    },
+    {
+        key: 'library.search',
+        path: '/library/search',
+        component: lazy(() => import('@/views/library/LibraryBrowse')),
+        authority: [],
+    },
+    {
+        key: 'admin.panel',
+        path: '/admin',
+        component: lazy(() => import('@/views/library/AdminPanel')),
+        authority: ['admin'],
+    },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',
