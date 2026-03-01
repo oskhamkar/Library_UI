@@ -1,1 +1,43 @@
-@import "./assets/styles/app.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Lexend:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #1349ec;
+  --color-primary-content: #ffffff;
+  --color-primary-light: #eef2ff;
+  --color-secondary: #0f172a;
+  --color-accent: #22c55e;
+  --color-accent-orange: #f97316;
+  --color-background-light: #f8fafc;
+  --color-background-dark: #101522;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1a2133;
+  --color-border-light: #e7eaf3;
+  --color-border-dark: #2a3245;
+  --color-success: #10b981;
+  --color-text-main: #0d1b12;
+  --color-text-secondary: #4c9a66;
+  
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Merriweather", serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-lexend: "Lexend", sans-serif;
+
+  --radius-3xl: 2.5rem;
+
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.05);
+  --shadow-glow: 0 0 20px rgba(19, 73, 236, 0.3);
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
