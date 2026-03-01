@@ -14,10 +14,10 @@ const Header = (props: HeaderProps) => {
     const { headerStart, headerEnd, headerMiddle, className, container } = props
 
     return (
-        <header className={classNames('header', className)}>
+        <header className={classNames('header bg-deep-navy text-white shadow-md relative z-20', className)}>
             <div
                 className={classNames(
-                    'header-wrapper',
+                    'header-wrapper flex items-center justify-between px-4',
                     HEADER_HEIGHT_CLASS,
                     container && 'container mx-auto'
                 )}
