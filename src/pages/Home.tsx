@@ -50,7 +50,7 @@ export default function Home() {
               <div className="hidden sm:flex items-center gap-4 text-sm font-semibold">
                 <Link className="hover:text-primary" to="/login">Login</Link>
                 <span className="text-slate-300">|</span>
-                <Link className="hover:text-primary" to="/login">Register</Link>
+                <Link className="hover:text-primary" to="/register">Register</Link>
               </div>
               <div className="lg:hidden">
                 <button className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">

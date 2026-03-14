@@ -12,6 +12,11 @@ export default function Login() {
               </div>
               <Link to="/" className="text-2xl font-bold font-serif tracking-tight text-slate-900 dark:text-white">MIT Academic</Link>
             </div>
+            <div className="flex items-center gap-4 text-sm font-semibold">
+              <Link className="text-primary transition-colors" to="/login">Login</Link>
+              <span className="text-slate-300">|</span>
+              <Link className="hover:text-primary transition-colors" to="/register">Register</Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -51,7 +56,7 @@ export default function Login() {
 
             <div className="mt-8 text-center">
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Don't have an account? <Link to="/login" className="font-bold text-primary hover:underline">Register here</Link>
+                Don't have an account? <Link to="/register" className="font-bold text-primary hover:underline">Register here</Link>
               </p>
             </div>
           </div>
