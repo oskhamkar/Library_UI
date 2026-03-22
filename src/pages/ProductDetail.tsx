@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { addToCart } from '../store/cartSlice';
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
-  const cartItems = useAppSelector(state => state.cart.items);
-  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
@@ -25,92 +23,16 @@ export default function ProductDetail() {
   const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-primary selection:text-white">
-      {/* <div className="h-8 bg-secondary text-white flex items-center justify-center text-xs font-medium tracking-wide">
-        Free shipping for institutional orders above ₹5000
-      </div> */}
-      <nav className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-8">
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="size-10 text-primary bg-primary/10 rounded-xl flex items-center justify-center">
-                <span className="material-symbols-outlined text-[28px]">school</span>
-              </div>
-              <Link to="/" className="text-2xl font-bold font-serif tracking-tight text-slate-900 dark:text-white">MIT Academic</Link>
-            </div>
-            <div className="flex-1 max-w-2xl hidden md:flex relative">
-              <input className="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-full py-3 pl-6 pr-12 focus:ring-2 focus:ring-primary text-sm shadow-inner transition-all" placeholder="Search for journals, ISBN, or authors..." type="text"/>
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-full hover:bg-blue-700 transition-colors">
-                <span className="material-symbols-outlined text-lg">search</span>
-              </button>
-            </div>
-            <div className="flex items-center gap-6 shrink-0">
-              <Link to="/cart" className="relative cursor-pointer hover:text-primary transition-colors">
-                <span className="material-symbols-outlined text-2xl">shopping_cart</span>
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-accent-orange text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white dark:border-slate-900">{cartCount}</span>
-                )}
-              </Link>
-              <div className="hidden sm:flex items-center gap-4 text-sm font-semibold">
-                <Link className="hover:text-primary" to="/login">Login</Link>
-                <span className="text-slate-300">|</span>
-                <Link className="hover:text-primary" to="/register">Register</Link>
-              </div>
-              <div className="lg:hidden">
-                <button className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                  <span className="material-symbols-outlined">menu</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:block border-t border-slate-100 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-14">
-              <div className="flex items-center gap-8">
-                <button className="bg-accent hover:bg-green-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow-sm transition-all flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg">headset_mic</span>
-                  Get In Touch
-                </button>
-                <div className="flex items-center gap-8 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Journals <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                    <div className="absolute top-full left-0 w-64 bg-white dark:bg-slate-800 shadow-xl rounded-b-xl border border-slate-100 dark:border-slate-700 p-4 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50">
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Scientific</Link>
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Humanities</Link>
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Medical</Link>
-                    </div>
-                  </div>
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Magazines <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                  </div>
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Books <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                  </div>
-                  <Link className="hover:text-primary transition-colors" to="/">Publisher Portal</Link>
-                </div>
-              </div>
-              <Link className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary" to="/contact">Contact Us</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <>
       <div className="py-6 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex text-sm text-slate-500 font-medium">
             <ol className="flex items-center space-x-2">
               <li><Link className="hover:text-primary transition-colors" to="/">Home</Link></li>
               <li><span className="material-symbols-outlined text-sm mx-1">chevron_right</span></li>
-              <li><Link className="hover:text-primary transition-colors" to="/product">Journals</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/journals">Journals</Link></li>
               <li><span className="material-symbols-outlined text-sm mx-1">chevron_right</span></li>
-              <li><Link className="hover:text-primary transition-colors" to="/product">Scientific</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/journals/scientific">Scientific</Link></li>
               <li><span className="material-symbols-outlined text-sm mx-1">chevron_right</span></li>
               <li className="text-slate-900 dark:text-white font-bold" aria-current="page">Nature Reviews: Molecular Cell Biology</li>
             </ol>
@@ -118,7 +40,7 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <main className="py-12 bg-white dark:bg-slate-900">
+      <section className="py-12 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-5">
@@ -247,7 +169,7 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
-      </main>
+      </section>
 
       <section className="py-16 bg-slate-50 dark:bg-slate-800/30 border-t border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -271,54 +193,6 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
-
-      <footer className="bg-[#0b0f19] text-slate-300 pt-20 pb-10 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
-            <div className="lg:col-span-4 space-y-6">
-              <div className="flex items-center gap-3 text-white">
-                <div className="size-8 text-primary bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[20px]">school</span>
-                </div>
-                <span className="text-xl font-bold font-serif tracking-tight">MIT Academic</span>
-              </div>
-              <p className="text-slate-400 leading-relaxed max-w-sm">
-                Empowering the global academic community with seamless access to knowledge. We bridge the gap between researchers and publishers.
-              </p>
-            </div>
-            <div className="lg:col-span-2 space-y-4">
-              <h4 className="text-white font-bold text-lg">Platform</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link className="hover:text-primary transition-colors" to="/">Browse Journals</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Digital Books</Link></li>
-              </ul>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              <h4 className="text-white font-bold text-lg">Librarian Resources</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link className="hover:text-primary transition-colors" to="/">Admin Dashboard</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Usage Statistics</Link></li>
-              </ul>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              <h4 className="text-white font-bold text-lg">Corporate Office</h4>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary mt-0.5 text-lg">location_on</span>
-                  <span>100 Research Blvd, Suite 400<br/>Cambridge, MA 02142</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-lg">call</span>
-                  <span>+91 9999999999</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>© 2023 MIT Academic Inc. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 }

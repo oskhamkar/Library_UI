@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { addToCart } from '../store/cartSlice';
 
 export default function Home() {
-  const cartItems = useAppSelector(state => state.cart.items);
-  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const dispatch = useAppDispatch();
 
   const handleAddToCart = (e: React.MouseEvent, item: any) => {
@@ -21,82 +19,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-primary selection:text-white">
-      {/* <div className="h-8 bg-secondary text-white flex items-center justify-center text-xs font-medium tracking-wide">
-        Free shipping for institutional orders above ₹5000
-      </div> */}
-      <nav className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-8">
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="size-10 text-primary bg-primary/10 rounded-xl flex items-center justify-center">
-                <span className="material-symbols-outlined text-[28px]">school</span>
-              </div>
-              <span className="text-2xl font-bold font-serif tracking-tight text-slate-900 dark:text-white">MIT Arts Commerce & Science College, Alandi</span>
-            </div>
-            <div className="flex-1 max-w-2xl hidden md:flex relative">
-              <input className="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-full py-3 pl-6 pr-12 focus:ring-2 focus:ring-primary text-sm shadow-inner transition-all" placeholder="Search for journals, ISBN, or authors..." type="text"/>
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-full hover:bg-blue-700 transition-colors">
-                <span className="material-symbols-outlined text-lg">search</span>
-              </button>
-            </div>
-            <div className="flex items-center gap-6 shrink-0">
-              <Link to="/cart" className="relative cursor-pointer hover:text-primary transition-colors">
-                <span className="material-symbols-outlined text-2xl">shopping_cart</span>
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-accent-orange text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white dark:border-slate-900">{cartCount}</span>
-                )}
-              </Link>
-              <div className="hidden sm:flex items-center gap-4 text-sm font-semibold">
-                <Link className="hover:text-primary" to="/login">Login</Link>
-                <span className="text-slate-300">|</span>
-                <Link className="hover:text-primary" to="/register">Register</Link>
-              </div>
-              <div className="lg:hidden">
-                <button className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                  <span className="material-symbols-outlined">menu</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:block border-t border-slate-100 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-14">
-              <div className="flex items-center gap-8">
-                <button className="bg-accent hover:bg-green-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow-sm transition-all flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg">headset_mic</span>
-                  Get In Touch
-                </button>
-                <div className="flex items-center gap-8 text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Journals <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                    <div className="absolute top-full left-0 w-64 bg-white dark:bg-slate-800 shadow-xl rounded-b-xl border border-slate-100 dark:border-slate-700 p-4 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50">
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Scientific</Link>
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Humanities</Link>
-                      <Link className="block py-2 px-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg" to="/product">Medical</Link>
-                    </div>
-                  </div>
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Magazines <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                  </div>
-                  <div className="group relative cursor-pointer h-14 flex items-center">
-                    <span className="group-hover:text-primary transition-colors flex items-center gap-1">
-                      Books <span className="material-symbols-outlined text-sm">expand_more</span>
-                    </span>
-                  </div>
-                  <Link className="hover:text-primary transition-colors" to="/">Publisher Portal</Link>
-                </div>
-              </div>
-              <Link className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary" to="/contact">Contact Us</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <>
       <section className="relative h-[600px] w-full overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
           <img alt="Library Interior" className="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBckNXM_Z8_ODDbkT0--ce8Mj6phwOBTVVu--son5cAMDL6vX6KZ4umKn5bEU6wEmZzC4yNsGA98cQomF7k1bg_1dtr_b9R3WnfG-VtNqeiBWWZF2D1G2B-sXejf5SwK6Ww712EByGC4nkOhOJtqO-OnMmn8zIWb7XtdaVZ6EXEVkCHHkXeZCZ2t2QvvFNZLN9YYm7amof461ujunKh6MAhk_R0rPVdoHptD4o-d-fcNVUdG5LommvyyQn9an0UMxDbBBhUzQW5fn0"/>
@@ -123,11 +46,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-        </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
-          <div className="w-3 h-3 rounded-full bg-white"></div>
-          <div className="w-3 h-3 rounded-full bg-white/30 hover:bg-white/50 cursor-pointer"></div>
-          <div className="w-3 h-3 rounded-full bg-white/30 hover:bg-white/50 cursor-pointer"></div>
         </div>
       </section>
       <section className="py-20 bg-background-light dark:bg-background-dark">
@@ -455,76 +373,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="bg-[#0b0f19] text-slate-300 pt-20 pb-10 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
-            <div className="lg:col-span-4 space-y-6">
-              <div className="flex items-center gap-3 text-white">
-                <div className="size-8 text-primary bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[20px]">school</span>
-                </div>
-                <span className="text-xl font-bold font-serif tracking-tight">MIT Academic</span>
-              </div>
-              <p className="text-slate-400 leading-relaxed max-w-sm">
-                Empowering the global academic community with seamless access to knowledge. We bridge the gap between researchers and publishers.
-              </p>
-              <div className="flex gap-4 pt-2">
-                <Link className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors text-slate-400" to="/">
-                  <span className="sr-only">Twitter</span>
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 5.8a8.49 8.49 0 0 1-2.36.64 4.13 4.13 0 0 0 1.81-2.27 8.21 8.21 0 0 1-2.61 1 4.1 4.1 0 0 0-7 3.74 11.64 11.64 0 0 1-8.45-4.29 4.16 4.16 0 0 0 1.27 5.49A4.09 4.09 0 0 1 2 9.72v.05a4.1 4.1 0 0 0 3.29 4.02 4.09 4.09 0 0 1-1.85.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 2 18.4 11.62 11.62 0 0 0 8.29 20c7.55 0 11.68-6.26 11.68-11.68 0-.18 0-.36-.01-.53A8.36 8.36 0 0 0 22 5.8z"></path></svg>
-                </Link>
-                <Link className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors text-slate-400" to="/">
-                  <span className="sr-only">LinkedIn</span>
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-                </Link>
-              </div>
-            </div>
-            <div className="lg:col-span-2 space-y-4">
-              <h4 className="text-white font-bold text-lg">Platform</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link className="hover:text-primary transition-colors" to="/">Browse Journals</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Digital Books</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Conferences</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Pricing Plans</Link></li>
-              </ul>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              <h4 className="text-white font-bold text-lg">Librarian Resources</h4>
-              <ul className="space-y-3 text-sm">
-                <li><Link className="hover:text-primary transition-colors" to="/">Admin Dashboard</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Usage Statistics</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">MARC Records</Link></li>
-                <li><Link className="hover:text-primary transition-colors" to="/">Integration Support</Link></li>
-              </ul>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              <h4 className="text-white font-bold text-lg">Corporate Office</h4>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary mt-0.5 text-lg">location_on</span>
-                  <span>Hinjewadi Phase 3, Pune<br/>Maharashtra, India 412086</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-lg">call</span>
-                  <span>+91 9999999999</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-lg">mail</span>
-                  <span>contact@mitacademic.com</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>© 2023 MIT Academic Inc. All rights reserved.</p>
-            <div className="flex gap-6">
-              <Link className="hover:text-white transition-colors" to="/">Privacy Policy</Link>
-              <Link className="hover:text-white transition-colors" to="/">Terms of Service</Link>
-              <Link className="hover:text-white transition-colors" to="/">Cookie Settings</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   );
 }
